@@ -1,0 +1,7 @@
+{
+  "models" : [
+    {"id" : 1 , "name" : "name1" , "img" : ""},
+    {"id" : 2 , "name" : "name2" , "img" : ""},
+    {"id" : 3 , "name" : "name3" , "img" : ""}
+  ]
+}

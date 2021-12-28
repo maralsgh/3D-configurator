@@ -1,0 +1,15 @@
+
+
+<!-- Sidebar -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <h3>List of 3D objects</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <li routerLinkActive="active" *ngFor="let list of dataInput">
+      <a class="d-flex" [routerLink]="'/object/' + list.id"><span class="mr-auto">{{list.name}} </span> <span> ;</span></a>
+    </li>
+  </ul>
+</nav>
+
