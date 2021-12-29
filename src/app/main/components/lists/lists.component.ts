@@ -10,9 +10,7 @@ export class ListsComponent implements OnInit {
  @Input() dataInput : Models[] = [];
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.dataInput)
-  }
+  ngOnInit(): void {}
 
   removeObject(id: number | undefined , event: Event) {
     event.preventDefault();
