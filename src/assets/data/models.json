@@ -1,8 +1,9 @@
 {
   "models" : [
-    {"id" : 1 , "name" : "name1" , "img" : "./assets/models/female/female.png"},
-    {"id" : 2 , "name" : "name2" , "img" : "./assets/models/chair/wood_bump.jpg"},
-    {"id" : 3 , "name" : "name3" , "img" : "./assets/models/Table/Gio_Normal.jpg"}
+    {"id" : 1 , "name" : "Female 3D Model" , "img" : "./assets/models/female/female.png"},
+    {"id" : 2 , "name" : "Chair 3D model" , "img" : "./assets/models/chair/wood_bump.jpg"},
+    {"id" : 3 , "name" : "Table 3D model" , "img" : "./assets/models/Table/Gio_Normal.jpg"}
+
   ],
   "1" : {
     "id" : 1 ,

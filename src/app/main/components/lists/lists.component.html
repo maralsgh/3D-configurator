@@ -8,7 +8,10 @@
 
   <ul class="list-unstyled components">
     <li routerLinkActive="active" *ngFor="let list of dataInput">
-      <a class="d-flex" [routerLink]="'/object/' + list.id"><span class="mr-auto">{{list.name}} </span> <span> ;</span></a>
+      <a class="d-flex" [routerLink]="'/object/' + list.id">
+        <span class="mr-auto">{{list.name}} </span>
+        <img (click)="removeObject(list.id , $event)" class="my-auto" src="assets/icons/trash-can.png"  height="15" alt="">
+      </a>
     </li>
   </ul>
 </nav>

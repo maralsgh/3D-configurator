@@ -53,7 +53,6 @@ export class ObjectComponent implements OnInit , AfterViewInit{
     this.configCamera();
     this.configRenderer();
     this.configControls();
-
     this.animate();
   }
 
@@ -65,10 +64,8 @@ export class ObjectComponent implements OnInit , AfterViewInit{
   configRenderer() {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
-    this.renderer.setSize(window.innerWidth - 400, window.innerHeight -20);
+    this.renderer.setSize(window.innerWidth - 300, window.innerHeight);
     this.renderer.shadowMap.enabled = true
-    this.renderer.domElement.style.display = "block";
-    this.renderer.domElement.style.margin = "auto";
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
   }
 
@@ -81,8 +78,7 @@ export class ObjectComponent implements OnInit , AfterViewInit{
 
   remove(){
     const selectedObject = this.scene.getObjectByName(name);
-  this.scene.clear(selectedObject)
-
+    this.scene.clear(selectedObject)
   }
 
   createMesh() {
