@@ -1,7 +1,37 @@
 {
   "models" : [
-    {"id" : 1 , "name" : "name1" , "img" : ""},
-    {"id" : 2 , "name" : "name2" , "img" : ""},
-    {"id" : 3 , "name" : "name3" , "img" : ""}
-  ]
+    {"id" : 1 , "name" : "name1" , "img" : "./assets/models/female/female.png"},
+    {"id" : 2 , "name" : "name2" , "img" : "./assets/models/chair/wood_bump.jpg"},
+    {"id" : 3 , "name" : "name3" , "img" : "./assets/models/Table/Gio_Normal.jpg"}
+  ],
+  "1" : {
+    "id" : 1 ,
+    "name" : "name1" ,
+    "obj" : "/female/female.obj",
+    "controls" : {
+      "autoRotate" : true,
+      "enableZoom" :false,
+      "enablePan" : false
+    }
+  },
+  "2": {
+    "id" : 2 ,
+    "name" : "name2" ,
+    "obj" : "/chair/chair.obj",
+    "controls" : {
+      "autoRotate" : true,
+      "enableZoom" :true,
+      "enablePan" : true
+    }
+  },
+  "3": {
+    "id" : 3 ,
+    "name" : "name3" ,
+    "obj" : "/Table/table.obj",
+    "controls" : {
+      "autoRotate" : true,
+      "enableZoom" : true,
+      "enablePan" : true
+    }
+  }
 }

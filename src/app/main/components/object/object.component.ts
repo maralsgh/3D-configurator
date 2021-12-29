@@ -1,42 +1,108 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as THREE from 'three';
+import {
+  OBJLoader
+} from 'three/examples/jsm/loaders/ObjLoader';
+
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { ActivatedRoute, Params } from '@angular/router';
+import { ModelService } from '../../services/model.service';
+import { Models } from '../../models/Entity';
 
 @Component({
   selector: 'app-object',
   templateUrl: './object.component.html',
   styleUrls: ['./object.component.scss']
 })
-export class ObjectComponent implements OnInit {
+export class ObjectComponent implements OnInit , AfterViewInit{
+  @ViewChild('rendererContainer') rendererContainer!: ElementRef;
 
-  constructor() { }
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  scene : any = null;
+  camera : any = null;
+  mesh : any= null;
+  controls: any = null;
+  id: number = 0;
+  loader : any;
+  modelInfo : Models = {};
 
-  ngOnInit(): void {
-    this.initGUT();
+  constructor(private activatedRoute: ActivatedRoute , private models: ModelService) {
+
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 100);
+    this.loader = new OBJLoader();
+
+    this.controls = new OrbitControls(this.camera , this.renderer.domElement);
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.id = params['id'];
+      this.getData();
+    });
   }
 
-  initGUT(){
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth - 400, window.innerHeight - 50);
-    const modalDiv = document.getElementById('renderHere');
-    // @ts-ignore
-    modalDiv.appendChild(renderer.domElement);
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-    const animate = function () {
-      requestAnimationFrame(animate);
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
-      renderer.render(scene, camera);
-    };
-    camera.position.z = 5;
-    renderer.render(scene, camera);
-    animate();
+  ngOnInit() {
   }
 
+  getData(){
+    this.models.get().then(data => {
+      this.modelInfo = data[this.id];
+      this.createMesh();
+    })
+  }
+
+  ngAfterViewInit(){
+    this.configCamera();
+    this.configRenderer();
+    this.configControls();
+
+    this.animate();
+  }
+
+
+  configCamera() {
+    this.camera.position.z = 2;
+  }
+
+  configRenderer() {
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
+    this.renderer.setSize(window.innerWidth - 400, window.innerHeight -20);
+    this.renderer.shadowMap.enabled = true
+    this.renderer.domElement.style.display = "block";
+    this.renderer.domElement.style.margin = "auto";
+    this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
+  }
+
+  configControls() {
+    this.controls.autoRotate = this.modelInfo?.controls?.autoRotate;
+    this.controls.enableZoom = this.modelInfo?.controls?.enableZoom;
+    this.controls.enablePan  = this.modelInfo?.controls?.enablePan;
+    this.controls.update();
+  }
+
+  remove(){
+    const selectedObject = this.scene.getObjectByName(name);
+  this.scene.clear(selectedObject)
+
+  }
+
+  createMesh() {
+    this.loader.load( `./assets/models/${this.modelInfo?.obj}`,  ( obj: any) => {
+        this.remove();
+        this.scene.add(obj);
+      const light = new THREE.DirectionalLight(0xffffff , 1.0);
+      light.position.set(100, 0, 100).normalize();
+      this.scene.add( light );
+
+    })
+
+
+  }
+
+  animate() {
+    requestAnimationFrame(() => this.animate());
+    this.controls.update();
+    this.renderer.render(this.scene, this.camera);
+  }
 
 
 }
