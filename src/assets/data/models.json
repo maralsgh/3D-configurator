@@ -10,8 +10,8 @@
     "name" : "name1" ,
     "obj" : "/female/female.obj",
     "controls" : {
-      "autoRotate" : true,
-      "enableZoom" :false,
+      "autoRotate" : false,
+      "enableZoom" :true,
       "enablePan" : false
     }
   },
@@ -30,7 +30,7 @@
     "name" : "name3" ,
     "obj" : "/Table/table.obj",
     "controls" : {
-      "autoRotate" : true,
+      "autoRotate" : false,
       "enableZoom" : true,
       "enablePan" : true
     }

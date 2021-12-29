@@ -25,6 +25,8 @@ export class ObjectComponent implements OnInit , AfterViewInit{
   id: number = 0;
   loader : any;
   modelInfo : Models = {};
+  enableZoom : boolean | undefined;
+  autoRotate: boolean | undefined;
 
   constructor(private activatedRoute: ActivatedRoute , private models: ModelService) {
 
@@ -45,14 +47,16 @@ export class ObjectComponent implements OnInit , AfterViewInit{
   getData(){
     this.models.get().then(data => {
       this.modelInfo = data[this.id];
+      this.enableZoom = data[this.id].controls.enableZoom;
+      this.autoRotate = data[this.id].controls.autoRotate;
       this.createMesh();
+      this.configControls();
     })
   }
 
   ngAfterViewInit(){
     this.configCamera();
     this.configRenderer();
-    this.configControls();
     this.animate();
   }
 
@@ -70,8 +74,8 @@ export class ObjectComponent implements OnInit , AfterViewInit{
   }
 
   configControls() {
-    this.controls.autoRotate = this.modelInfo?.controls?.autoRotate;
-    this.controls.enableZoom = this.modelInfo?.controls?.enableZoom;
+    this.controls.autoRotate = this.autoRotate;
+    this.controls.enableZoom = this.enableZoom;
     this.controls.enablePan  = this.modelInfo?.controls?.enablePan;
     this.controls.update();
   }
@@ -100,5 +104,7 @@ export class ObjectComponent implements OnInit , AfterViewInit{
     this.renderer.render(this.scene, this.camera);
   }
 
-
+  changeControlRotate(b: boolean) {
+    this.configControls();
+  }
 }

@@ -1,2 +1,13 @@
 
-      <div #rendererContainer></div>
+
+<div class="controls">
+  <div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="customSwitch1"  [checked]="enableZoom" (change)="changeControlRotate(enableZoom=!enableZoom)">
+    <label class="custom-control-label" for="customSwitch1">Zoom</label>
+  </div>
+  <div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="customSwitch2" [checked]="autoRotate" (change)="changeControlRotate(autoRotate=!autoRotate)">
+    <label class="custom-control-label" for="customSwitch2">Rotate</label>
+  </div>
+</div>
+<div #rendererContainer></div>
