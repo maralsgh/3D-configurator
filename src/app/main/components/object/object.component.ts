@@ -68,7 +68,12 @@ export class ObjectComponent implements OnInit , AfterViewInit{
   configRenderer() {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
-    this.renderer.setSize(window.innerWidth - 300, window.innerHeight);
+    if(window.innerWidth >= 767){
+      this.renderer.setSize(window.innerWidth - 300, window.innerHeight);
+    }else{
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
     this.renderer.shadowMap.enabled = true
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
   }
